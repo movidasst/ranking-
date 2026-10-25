@@ -1,0 +1,19 @@
+{
+  "name": "Ranking XP · La Movida de SST+",
+  "short_name": "Ranking SST+",
+  "description": "Reconocimiento de participación y aprendizaje de La Movida de SST+.",
+  "start_url": "./#inicio",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f9fc",
+  "theme_color": "#00205b",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "./assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

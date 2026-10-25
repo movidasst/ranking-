@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+ <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#051a40"/><stop offset=".7" stop-color="#00205b"/><stop offset="1" stop-color="#036a73"/></linearGradient><linearGradient id="gold" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#fff0b2"/><stop offset=".42" stop-color="#ffc12b"/><stop offset="1" stop-color="#cc8600"/></linearGradient></defs>
+ <rect width="1200" height="630" fill="#f9fbfd"/><rect width="1200" height="504" fill="url(#bg)"/>
+ <rect y="0" width="1200" height="10" fill="#ffb600"/>
+ <circle cx="967" cy="239" r="216" fill="none" stroke="#fff" stroke-opacity=".12" stroke-width="2"/>
+ <circle cx="967" cy="239" r="175" fill="none" stroke="#fff" stroke-opacity=".14" stroke-width="2"/>
+ <circle cx="967" cy="239" r="123" fill="url(#gold)"/>
+ <circle cx="967" cy="239" r="104" fill="none" stroke="#fff4c0" stroke-width="5"/>
+ <path d="M923 183h88v60c0 33-17 54-44 54s-44-21-44-54v-60zm0 18h-30v23c0 25 10 35 31 37m87-60h30v23c0 25-10 35-31 37" fill="none" stroke="#775008" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
+ <path d="M967 295v27m-37 8h74" stroke="#775008" stroke-width="10" stroke-linecap="round"/>
+ <text x="80" y="90" fill="#aadfdc" font-size="29" font-weight="bold" font-family="Arial, sans-serif">LA MOVIDA DE SST+</text>
+ <text x="80" y="207" fill="#fff" font-size="79" font-weight="800" font-family="Arial, sans-serif">RANKING</text>
+ <text x="80" y="304" fill="#ffcf65" font-size="79" font-weight="800" font-family="Arial, sans-serif">XP</text>
+ <text x="80" y="374" fill="#d6e5ec" font-size="26" font-family="Arial, sans-serif">Aprender · Participar · Compartir</text>
+ <text x="80" y="433" fill="#a6dcd8" font-size="22" font-family="Arial, sans-serif">De la Reacción a la Prevención</text>
+ <g font-family="Arial, sans-serif"><text x="80" y="560" fill="#00205b" font-size="33" font-weight="bold">ranking.movidasst.com</text><text x="80" y="600" fill="#66758b" font-size="20">Reconocimiento y progreso en Seguridad y Salud en el Trabajo</text></g>
+</svg>

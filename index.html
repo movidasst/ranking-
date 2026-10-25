@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#00205b">
+  <meta name="description" content="Ranking oficial de La Movida de SST+. Conoce los puntos XP, niveles y reconocimientos por estudios, participación y aportes a la comunidad.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://ranking.movidasst.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:url" content="https://ranking.movidasst.com/">
+  <meta property="og:title" content="Ranking XP | La Movida de SST+">
+  <meta property="og:description" content="Aprender, participar y compartir tiene reconocimiento. Descubre los niveles y el ranking de nuestra comunidad de SST.">
+  <meta property="og:image" content="https://ranking.movidasst.com/assets/og-ranking.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>Ranking XP | La Movida de SST+</title>
+  <link rel="icon" type="image/svg+xml" href="assets/icon.svg">
+  <link rel="apple-touch-icon" href="assets/icon.svg">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=1.0.0">
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script defer src="app.js?v=1.0.0"></script>
+</head>
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="svg-sprite">
+    <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M8 21h8m-4-4v4M7 3h10v7a5 5 0 0 1-10 0V3ZM7 5H4v3a4 4 0 0 0 4 4m9-7h3v3a4 4 0 0 1-4 4"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V10Zm6 11v-8h6v8"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 19V5m0 14h16M8 15l4-5 3 2 5-7"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-2a8 8 0 0 1 16 0v2"/></symbol>
+    <symbol id="i-medal" viewBox="0 0 24 24"><circle cx="12" cy="15" r="6"/><path d="m8 9-3-6h5l2 4 2-4h5l-3 6m-4 3 1 2 2 .5-1.5 1.5.4 2-1.9-1-1.9 1 .4-2L9 14.5l2-.5z"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 2 1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8L12 2Zm7 15 .8 2.2L22 20l-2.2.8L19 23l-.8-2.2L16 20l2.2-.8L19 17Z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M13 5h6v6m0-6-9 9m7 0v5H5V7h5"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="m12 2 9 4v6c0 6-4 9-9 10-5-1-9-4-9-10V6l9-4Zm-4 10 3 3 5-6"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 5c-3-2-6-2-9-1v15c3-1 6-1 9 1 3-2 6-2 9-1V4c-3-1-6-1-9 1Zm0 0v15"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M20 11.5A8.5 8.5 0 0 1 11.5 20H4l1.8-4A8.5 8.5 0 1 1 20 11.5Z"/><path d="M8 11h8m-8 4h5"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-4-4 4 4 4-4M4 18v3h16v-3"/></symbol>
+    <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m9 11 6-5m-6 8 6 4"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="11" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4m-4 5v2"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M5 5 19 19M19 5 5 19"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 10v7m0-10v.2"/></symbol>
+  </svg>
+  <div class="brand-stripe"></div>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="#inicio" class="brand" data-target="inicio" aria-label="Ranking SST - inicio">
+        <img src="assets/icon.svg" alt="" width="43" height="43">
+        <span class="brand-words"><strong>LA MOVIDA <em>DE SST<span>+</span></em></strong><small>RANKING DE LA COMUNIDAD</small></span>
+      </a>
+      <div class="header-actions"><span class="live-pill"><i></i> XP en comunidad</span><button type="button" id="headerShare" class="round-btn" aria-label="Compartir ranking"><svg><use href="#i-share"/></svg></button></div>
+    </div>
+  </header>
+  <main id="main">
+    <section id="view-inicio" class="page" data-page="inicio">
+      <div class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow"><svg><use href="#i-spark"/></svg> DE LA REACCIÓN A LA PREVENCIÓN</div>
+          <h1>Tu participación<br>deja <span>huella.</span></h1>
+          <p>Aprender, compartir y contribuir merece reconocimiento. Todos tus logros en Seguridad y Salud en el Trabajo, en un solo ranking.</p>
+          <div class="hero-buttons"><button class="button button-light" data-target="ranking" type="button">Explorar ranking <svg><use href="#i-arrow"/></svg></button><button class="button button-outline-light" data-target="misxp" type="button">Consultar mis XP</button></div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="hero-halo"></div><div class="hero-halo inner"></div>
+          <div class="hero-medal"><div class="hero-medal-inner"><svg><use href="#i-trophy"/></svg><b>XP</b></div></div>
+          <div class="art-chip chip-one"><svg><use href="#i-spark"/></svg><span>CONOCIMIENTO</span></div>
+          <div class="art-chip chip-two"><svg><use href="#i-chart"/></svg><span>PROGRESO</span></div>
+        </div>
+        <div class="hero-corner-ornament"></div>
+      </div>
+      <div class="stat-strip" id="homeStats" aria-live="polite">
+        <div class="stat-tile"><div class="skeleton skeleton-label"></div><div class="skeleton skeleton-value"></div></div>
+        <div class="stat-tile"><div class="skeleton skeleton-label"></div><div class="skeleton skeleton-value"></div></div>
+        <div class="stat-tile"><div class="skeleton skeleton-label"></div><div class="skeleton skeleton-value"></div></div>
+      </div>
+      <div class="section-heading"><div><span class="overline">RECONOCIMIENTO EN TIEMPO REAL</span><h2>El podio de la comunidad</h2><p>Profesionales que encabezan el ranking global.</p></div><button class="text-link" data-target="ranking" type="button">Ver clasificación <svg><use href="#i-arrow"/></svg></button></div>
+      <div id="homePodium" class="podium-area"><div class="loading-inline"><span class="loader"></span> Cargando posiciones…</div></div>
+      <div class="section-heading section-heading-compact"><div><span class="overline">CADA APORTE CUENTA</span><h2>Tres caminos para sumar XP</h2></div></div>
+      <div class="source-grid">
+        <article class="source-card source-study"><div class="source-icon"><svg><use href="#i-book"/></svg></div><span class="source-ordinal">01 / APRENDER</span><h3>Estudia</h3><p>Aporta a los estudios, comparte conocimiento técnico y construye aprendizajes colectivos.</p><a href="https://estudia.movidasst.com/" target="_blank" rel="noopener noreferrer">Ir a Estudia <svg><use href="#i-external"/></svg></a></article>
+        <article class="source-card source-participa"><div class="source-icon"><svg><use href="#i-check"/></svg></div><span class="source-ordinal">02 / PARTICIPAR</span><h3>Participa</h3><p>Responde encuestas y participa en las actividades que ayudan a construir nuestra comunidad.</p><a href="https://participa.movidasst.com/" target="_blank" rel="noopener noreferrer">Ir a Participa <svg><use href="#i-external"/></svg></a></article>
+        <article class="source-card source-community"><div class="source-icon"><svg><use href="#i-chat"/></svg></div><span class="source-ordinal">03 / COMPARTIR</span><h3>Pulso de la Comunidad</h3><p>Tus aportes útiles y la constancia en los grupos de WhatsApp pueden sumar 50, 100 o 150 XP por período evaluado.</p><span class="source-note">Con análisis y validación administrativa</span></article>
+      </div>
+      <div class="principle-banner"><div class="principle-icon"><svg><use href="#i-shield"/></svg></div><div><strong>Más que competir: reconocer el aporte.</strong><p>Los XP son una forma de visualizar el aprendizaje, la colaboración y la contribución profesional. Las asignaciones siguen los criterios de cada actividad.</p></div><button class="button button-secondary" data-target="niveles" type="button">Conoce los niveles</button></div>
+    </section>
+
+    <section id="view-ranking" class="page" data-page="ranking" hidden>
+      <div class="page-heading"><span class="overline">CLASIFICACIÓN OFICIAL</span><h1>Ranking de integrantes</h1><p>Explora las posiciones, busca profesionales y consulta los reconocimientos acumulados.</p></div>
+      <div class="mode-switch" role="group" aria-label="Alcance del ranking"><button class="mode-btn selected" id="scopeGlobal" type="button" aria-pressed="true">Ranking general</button><button class="mode-btn" id="scopeStudies" type="button" aria-pressed="false">Por estudio</button></div>
+      <div class="rank-filters"><label id="studyField" class="field" hidden><span>Selecciona un estudio</span><select id="studySelect"><option value="">Selecciona un estudio</option></select></label><label class="field field-search"><span>Buscar integrante</span><span class="input-icon"><svg><use href="#i-search"/></svg><input id="rankingSearch" type="search" placeholder="Nombre del profesional" autocomplete="off"></span></label><label class="field"><span>Filtrar por nivel</span><select id="levelFilter"><option value="">Todos los niveles</option></select></label></div>
+      <div class="rank-topline"><div><strong id="rankingCount">—</strong><span id="rankingCaption">Resultados del ranking general</span></div><div class="rank-top-actions"><button class="chip-action" id="refreshRank" type="button"><svg><use href="#i-refresh"/></svg> Actualizar</button><button class="chip-action" id="downloadPodium" type="button"><svg><use href="#i-download"/></svg> Podio PNG</button></div></div>
+      <div id="rankingPodium" class="podium-area podium-ranking"></div>
+      <div class="rank-card"><div class="rank-card-head"><strong>Clasificación</strong><span>Posición · Integrante · XP</span></div><div id="rankingList" class="ranking-list"><div class="loading-inline"><span class="loader"></span> Consultando ranking…</div></div><button id="showMoreRank" class="button button-secondary load-more" type="button" hidden>Mostrar más posiciones <svg><use href="#i-arrow"/></svg></button></div>
+      <p class="small-note"><svg><use href="#i-info"/></svg> El ranking público no incluye cuentas excluidas de la clasificación. Sus puntos no desaparecen de sus historiales privados.</p>
+    </section>
+
+    <section id="view-misxp" class="page" data-page="misxp" hidden>
+      <div class="page-heading"><span class="overline">TU TRAYECTORIA</span><h1>Mis puntos XP</h1><p>Consulta tus logros, tu nivel y los movimientos de tu participación. Tu historial es privado.</p></div>
+      <div class="private-layout" id="privateLoginWrap"><div class="private-card"><div class="private-icon"><svg><use href="#i-lock"/></svg></div><h2>Tu progreso, solo para ti.</h2><p>Utiliza los datos de tu credencial de integrante de La Movida de SST+.</p><form id="progressForm" autocomplete="off"><label class="field"><span>Número de documento / cédula</span><input id="cedulaInput" type="text" inputmode="numeric" pattern="[0-9]{5,12}" maxlength="12" placeholder="Número sin puntos" required autocomplete="off"></label><label class="field"><span>Código de registro (5 caracteres)</span><span class="password-shell"><input id="codigoInput" type="password" maxlength="5" minlength="5" placeholder="Tu código" required autocomplete="off"><button id="toggleCode" type="button" aria-label="Mostrar u ocultar código"><svg><use href="#i-eye"/></svg></button></span></label><button id="progressSubmit" class="button button-primary full" type="submit">Ver mis puntos <svg><use href="#i-arrow"/></svg></button></form><div class="privacy-label"><svg><use href="#i-shield"/></svg><span>La consulta se valida en Supabase. No guardamos estos datos en tu dispositivo.</span></div></div><div class="private-side"><span class="overline">IDENTIDAD Y RECONOCIMIENTO</span><h3>Cada paso construye tu trayectoria.</h3><p>Conoce tus XP acumulados, la próxima meta y de dónde provienen tus reconocimientos.</p><div class="private-ornament"><svg><use href="#i-medal"/></svg></div><a href="https://registro.movidasst.com/" target="_blank" rel="noopener noreferrer">¿Aún no tienes credencial? Regístrate <svg><use href="#i-external"/></svg></a></div></div>
+      <div id="progressResult" hidden><div class="progress-intro"><div><span class="overline">PERFIL DE CONTRIBUCIÓN</span><h2 id="myName">Integrante</h2><span id="myState">La Movida de SST+</span></div><button id="closeMyProfile" class="chip-action" type="button"><svg><use href="#i-close"/></svg> Cerrar consulta</button></div><div class="my-profile-card"><div class="profile-avatar" id="myAvatar">S</div><div class="profile-summary"><span class="mini-overline">TU RECONOCIMIENTO ACTUAL</span><div class="profile-level"><span id="myLevelIcon">✦</span><strong id="myLevelName">Participante</strong></div><div class="my-xp-value"><span id="myXp">0</span><small>XP acumulados</small></div></div><div class="profile-position"><span>POSICIÓN GENERAL</span><strong id="myPosition">—</strong></div></div><article class="panel next-panel"><div class="panel-top"><h3>Camino al siguiente nivel</h3><span id="nextLevelName">—</span></div><div class="progress-track"><div id="levelProgressBar" class="progress-fill" style="width:0%"></div></div><p id="levelProgressText" class="subtle">—</p></article><div class="section-heading section-heading-compact"><div><span class="overline">TUS RECONOCIMIENTOS</span><h2>¿De dónde vienen tus XP?</h2></div></div><div id="sourceBreakdown" class="my-source-grid"></div><p id="breakdownCaveat" class="small-note" hidden></p><div class="private-sections"><article class="panel"><div class="panel-top"><h3>Movimientos recientes</h3><span id="historyTotal" class="tiny-tag"></span></div><div id="historyList" class="history-list"></div></article><article class="panel"><div class="panel-top"><h3>Participación en estudios</h3><span class="tiny-tag">Detalle por estudio</span></div><div id="studyXpList" class="study-xp-list"></div></article></div><button class="button button-secondary" id="resetProfile" type="button">Consultar otra credencial</button></div>
+    </section>
+
+    <section id="view-niveles" class="page" data-page="niveles" hidden><div class="page-heading"><span class="overline">TU CRECIMIENTO</span><h1>Los niveles de La Movida</h1><p>Los niveles evolucionan con los XP acumulados. Cada avance representa una nueva etapa de participación y conocimiento.</p></div><div class="levels-hero"><div class="levels-hero-mark"><svg><use href="#i-medal"/></svg></div><div><h2>De Participante a Leyenda</h2><p>Siete niveles, una trayectoria que tú construyes. Los umbrales son los definidos oficialmente para el ranking.</p></div><button class="button button-light" data-target="misxp" type="button">Ver mi nivel <svg><use href="#i-arrow"/></svg></button></div><div id="levelsGrid" class="levels-grid"><div class="loading-inline"><span class="loader"></span> Cargando niveles…</div></div><article class="panel level-faq"><h3>¿Cómo avanzo de nivel?</h3><p>Tus XP se acumulan en el mismo historial, independientemente de que provengan de Estudia, Participa o Pulso de la Comunidad. Cuando alcanzas el umbral del siguiente nivel, tu reconocimiento cambia automáticamente.</p><p>La clasificación pública y el acceso privado al historial cumplen funciones distintas: la primera muestra posiciones; el segundo, el detalle individual.</p></article></section>
+
+    <section id="view-mas" class="page" data-page="mas" hidden><div class="page-heading"><span class="overline">CONOCE EL SISTEMA</span><h1>Un reconocimiento con propósito</h1><p>La Movida de SST+ reconoce el conocimiento compartido, las actividades colaborativas y la participación útil en comunidad.</p></div><div class="about-masthead"><svg><use href="#i-spark"/></svg><h2>Aprender. Participar. Compartir.</h2><p>Tres dimensiones que se encuentran en un único ranking.</p></div><div class="faq-list"><article class="faq-card"><div class="faq-num">01</div><div><h3>Estudia</h3><p>Los estudios reconocen aportes técnicos, participación y otras actividades evaluadas conforme a sus criterios.</p><a href="https://estudia.movidasst.com/" target="_blank" rel="noopener noreferrer">Conocer Estudia <svg><use href="#i-external"/></svg></a></div></article><article class="faq-card"><div class="faq-num">02</div><div><h3>Participa</h3><p>Las encuestas y actividades de participación comunitaria pueden otorgar XP según sus reglas.</p><a href="https://participa.movidasst.com/" target="_blank" rel="noopener noreferrer">Ir a Participa <svg><use href="#i-external"/></svg></a></div></article><article class="faq-card"><div class="faq-num">03</div><div><h3>Pulso de la Comunidad</h3><p>En grupos de WhatsApp, el análisis de mensajes útiles y constancia genera propuestas de 50, 100 o 150 XP, sujetas a confirmación administrativa. No se premia el simple envío masivo de mensajes.</p></div></article></div><article class="panel transparency-panel"><div class="transparency-icon"><svg><use href="#i-shield"/></svg></div><h3>Transparencia y privacidad</h3><p>Las posiciones públicas muestran información profesional de reconocimiento. Tu historial detallado se consulta por separado utilizando tu documento y código personal. Los puntos se registran en un único sistema y no se duplican por visitar esta web.</p></article><div class="about-links"><a href="https://www.movidasst.com/" target="_blank" rel="noopener noreferrer">La Movida de SST+ <svg><use href="#i-external"/></svg></a><a href="https://registro.movidasst.com/" target="_blank" rel="noopener noreferrer">Registro de integrantes <svg><use href="#i-external"/></svg></a><button id="shareFromMore" type="button">Compartir esta plataforma <svg><use href="#i-share"/></svg></button></div></section>
+  </main>
+  <nav class="bottom-nav" aria-label="Navegación principal"><div class="nav-inner"><button data-target="inicio" class="nav-item active" aria-current="page" type="button"><svg><use href="#i-home"/></svg><span>Inicio</span></button><button data-target="ranking" class="nav-item" type="button"><svg><use href="#i-trophy"/></svg><span>Ranking</span></button><button data-target="misxp" class="nav-item" type="button"><svg><use href="#i-chart"/></svg><span>Mis XP</span></button><button data-target="niveles" class="nav-item" type="button"><svg><use href="#i-medal"/></svg><span>Niveles</span></button><button data-target="mas" class="nav-item" type="button"><svg><use href="#i-grid"/></svg><span>Más</span></button></div></nav>
+  <div id="appToast" class="toast" role="status" aria-live="polite" hidden></div>
+  <footer class="site-footer"><span>La Movida de SST+ · De la Reacción a la Prevención</span><span>© 2026 · <a href="https://www.movidasst.com/" target="_blank" rel="noopener noreferrer">www.movidasst.com</a></span></footer>
+</body>
+</html>
