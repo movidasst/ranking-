@@ -13,7 +13,20 @@
   const format = number => Number(number || 0).toLocaleString('es-VE');
   const niceDate = date => { const d = new Date(date); return Number.isNaN(d.getTime())?'—':d.toLocaleDateString('es-VE',{day:'numeric',month:'short',year:'numeric'}); };
   const icon = name => `<svg aria-hidden="true"><use href="#i-${name}"/></svg>`;
-  const safePhoto = url => { try { const u=new URL(String(url||''));return u.protocol==='https:'?u.href:null; }catch{return null;} };
+  const safePhoto = url => {
+    try {
+      const u = new URL(String(url || '').trim());
+      if (u.protocol !== 'https:') return null;
+      if (['drive.google.com','docs.google.com'].includes(u.hostname.toLowerCase())) {
+        const matched = u.pathname.match(/\/file\/d\/([A-Za-z0-9_-]{15,})/);
+        const id = matched?.[1] || u.searchParams.get('id');
+        return id && /^[A-Za-z0-9_-]{15,}$/.test(id)
+          ? 'https://drive.google.com/thumbnail?id=' + encodeURIComponent(id) + '&sz=w600'
+          : null;
+      }
+      return u.href;
+    } catch { return null; }
+  };
   let sb = null;
   let toastTimer;
   const state = {view:'inicio',global:[],levels:[],studies:[],scope:'global',studyId:'',visible:20,ranking:[],loadSerial:0,privateData:null,loaded:false};
@@ -180,7 +193,7 @@
     $('myName').textContent=p.nombre||'Integrante';$('myState').textContent=p.estado||'La Movida de SST+';
     const ph=safePhoto(p.foto_url),avatarBox=$('myAvatar');
     avatarBox.textContent=initials(p.nombre);
-    if(ph){const img=document.createElement('img');img.src=ph;img.alt='Foto de perfil';img.referrerPolicy='no-referrer';img.onerror=()=>img.remove();avatarBox.replaceChildren(img);}
+    if(ph){const img=document.createElement('img');img.src=ph;img.alt='Foto de perfil';img.referrerPolicy='no-referrer';img.onerror=()=>img.remove();avatarBox.appendChild(img);}
     $('myLevelIcon').textContent=r.nivel_icono||'✦';$('myLevelName').textContent=r.nivel||'Participante';
     $('myXp').textContent=format(r.puntos);
     $('myPosition').textContent=r.fuera_de_ranking?'Fuera de clasificación':Number(r.posicion)>0?`#${format(r.posicion)}`:'—';
