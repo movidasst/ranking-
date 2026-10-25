@@ -35,3 +35,88 @@
   .brand img{height:32px;width:32px}
   .header-register{padding:0 9px}
 }
+
+/* Identidad oficial La Movida de SST+ · Ranking: logo real + brillo editorial */
+.header-inner{height:auto;min-height:103px}
+.brand.brand-official{gap:13px;min-width:0;max-width:fit-content}
+.brand-logo-frame{
+  position:relative;isolation:isolate;flex:0 0 88px;
+  width:88px;height:88px;display:grid;place-items:center;
+  padding:3px;border-radius:24px;
+  background:linear-gradient(145deg,#fff 8%,#e9f6f5 70%,#dce9f5 100%);
+  border:1px solid rgba(0,123,133,.13);
+  box-shadow:0 9px 24px rgba(0,32,91,.13),0 2px 9px rgba(0,123,133,.09),inset 0 1px 0 #fff;
+  transition:transform .25s ease,box-shadow .25s ease;
+}
+.brand-logo-frame:before{
+  content:"";pointer-events:none;position:absolute;inset:-4px;
+  border-radius:27px;border:1px solid rgba(0,123,133,.12);
+  background:radial-gradient(circle at 30% 9%,rgba(255,255,255,.9),transparent 42%);
+  z-index:-1;
+}
+.brand .brand-logo-img{
+  display:block;position:relative;width:100%;height:100%;border-radius:0;
+  background:transparent;object-fit:contain;filter:drop-shadow(0 5px 7px rgba(0,32,91,.17));
+}
+.brand-official .brand-words strong{font-size:18px;letter-spacing:-.02em;line-height:1.04}
+.brand-official .brand-words small{font-size:10px;letter-spacing:.08em;margin-top:6px;color:var(--teal)}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){
+  .brand-official:hover .brand-logo-frame{
+    transform:translateY(-2px);
+    box-shadow:0 14px 27px rgba(0,32,91,.17),0 0 21px rgba(0,123,133,.12);
+  }
+}
+.hero-logo-stage{
+  width:235px;height:235px;display:grid;place-items:center;z-index:2;
+  position:relative;overflow:hidden;border-radius:50%;
+  background:radial-gradient(circle at 32% 20%,rgba(255,255,255,.28),rgba(255,255,255,.08) 56%,rgba(0,129,137,.13));
+  border:1px solid rgba(255,255,255,.34);
+  box-shadow:0 29px 44px rgba(0,8,26,.25),inset 0 1px 1px rgba(255,255,255,.28),
+             0 0 68px rgba(50,201,198,.18);
+  backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);
+}
+.hero-logo-stage:before{
+  content:"";position:absolute;inset:8px;border:1px solid rgba(255,255,255,.23);
+  border-radius:50%;pointer-events:none;
+}
+.hero-logo-shimmer{
+  position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(130deg,transparent 32%,rgba(255,255,255,.12) 46%,rgba(255,255,255,.03) 52%,transparent 65%);
+}
+.hero-official-logo{
+  position:relative;width:205px;height:205px;object-fit:contain;z-index:1;
+  filter:drop-shadow(0 14px 22px rgba(0,8,30,.34)) drop-shadow(0 0 12px rgba(255,255,255,.12));
+}
+.hero-xp-token{
+  position:absolute;z-index:3;right:32px;bottom:2px;
+  width:77px;height:77px;display:flex;align-items:center;justify-content:center;gap:2px;
+  border-radius:50%;transform:rotate(12deg);
+  background:linear-gradient(130deg,#ffedb1,#ffbc25 44%,#c27f07 85%);
+  border:4px solid #fff3cd;
+  box-shadow:0 13px 24px rgba(0,11,28,.22),inset 0 2px 7px rgba(255,255,255,.65);
+  color:#49330d;font-weight:800;
+}
+.hero-xp-token svg{width:24px;height:24px;stroke-width:2}
+.hero-xp-token strong{font-size:15px}
+@media(max-width:640px){
+  .header-inner{height:auto;min-height:87px;padding:6px 11px;gap:7px}
+  .brand.brand-official{gap:7px;min-width:0;flex:1 1 auto}
+  .brand-logo-frame{width:69px;height:69px;flex-basis:69px;border-radius:19px;padding:2px}
+  .brand-logo-frame:before{border-radius:22px}
+  .brand-official .brand-words strong{font-size:14px}
+  .brand-official .brand-words small{font-size:8px;letter-spacing:.025em;margin-top:4px}
+  .header-actions{margin-left:auto;gap:6px}
+  .header-home{width:36px;height:36px}
+  .header-register{padding:0 10px;min-height:36px}
+  .hero-logo-stage{width:225px;height:225px}
+}
+@media(max-width:370px){
+  .header-inner{min-height:78px;padding:5px 9px;gap:5px}
+  .brand.brand-official{gap:5px}
+  .brand-logo-frame{width:59px;height:59px;flex-basis:59px;border-radius:17px}
+  .brand-official .brand-words strong{font-size:12.5px}
+  .brand-official .brand-words small{font-size:7px;letter-spacing:0}
+  .header-actions{gap:4px}
+  .header-home{width:32px;height:32px}
+  .header-register{padding:0 8px;min-height:32px}
+}
