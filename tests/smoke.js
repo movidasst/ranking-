@@ -20,7 +20,14 @@ assert.match(html,/value="todos" selected>Todos los estudios/);
 assert.match(js,/ranking_todos_estudios_publico/);
 assert.match(js,/state\.studyId==='todos'/);
 assert.match(js,/id==='todos'\s*\? await fetchAllStudyRanking\(\)/);
-assert.match(fs.readFileSync('sw.js','utf8'),/ranking-sst-shell-v5/);
+assert.match(fs.readFileSync('sw.js','utf8'),/ranking-sst-shell-v6/);
+assert.match(html,/Hacia la IA agéntica en SST/);
+assert.match(html,/¿Cómo funcionan los XP\?/);
+assert.match(html,/50 <small>XP<\/small>/);
+assert.match(html,/100 <small>XP<\/small>/);
+assert.match(html,/150 <small>XP<\/small>/);
+assert.match(html,/con supervisión humana/);
+assert.match(fs.readFileSync('styles.css','utf8'),/\.innovation-explainer/);
 console.log('All ranking SST smoke checks passed.');
 
 assert.match(html,/class="header-home round-btn"[^>]*aria-label="Ir al inicio/);
