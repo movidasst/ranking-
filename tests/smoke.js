@@ -17,3 +17,11 @@ assert.match(html,/assets\/og-ranking\.png/);
 assert.equal(fs.readFileSync('CNAME','utf8').trim(),'ranking.movidasst.com');
 assert.equal(JSON.parse(fs.readFileSync('manifest.webmanifest','utf8')).display,'standalone');
 console.log('All ranking SST smoke checks passed.');
+
+assert.match(html,/class="header-home round-btn"[^>]*aria-label="Ir al inicio/);
+assert.match(html,/href="https:\/\/registro\.movidasst\.com\/" class="header-register"/);
+assert.doesNotMatch(html,/href="https:\/\/(?:www|registro)\.movidasst\.com\/"[^>]*target="_blank"/);
+assert.match(js,/lh3\.googleusercontent\.com\/d\//);
+assert.match(js,/data-ranking-photo/);
+assert.match(js,/backupPhoto/);
+assert.match(fs.readFileSync('sw.js','utf8'),/ranking-sst-shell-v3/);

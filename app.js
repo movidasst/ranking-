@@ -1,4 +1,4 @@
-/* Ranking SST · web pública independiente v1.0.0.
+/* Ranking SST · web pública independiente v1.1.0.
  * Exclusivamente lectura: reutiliza RPC públicos de Estudia y el histórico central de XP.
  * No ejecuta INSERT/UPDATE/DELETE en ninguna tabla. */
 (() => {
@@ -13,20 +13,37 @@
   const format = number => Number(number || 0).toLocaleString('es-VE');
   const niceDate = date => { const d = new Date(date); return Number.isNaN(d.getTime())?'—':d.toLocaleDateString('es-VE',{day:'numeric',month:'short',year:'numeric'}); };
   const icon = name => `<svg aria-hidden="true"><use href="#i-${name}"/></svg>`;
-  const safePhoto = url => {
+  /* Mismo origen principal de fotos de Google Drive que Estudia. Si falla, probar
+   * thumbnail de Google; si también falla, conservar iniciales sin iconos rotos. */
+  const driveFileId = url => {
     try {
       const u = new URL(String(url || '').trim());
-      if (u.protocol !== 'https:') return null;
-      if (['drive.google.com','docs.google.com'].includes(u.hostname.toLowerCase())) {
-        const matched = u.pathname.match(/\/file\/d\/([A-Za-z0-9_-]{15,})/);
-        const id = matched?.[1] || u.searchParams.get('id');
-        return id && /^[A-Za-z0-9_-]{15,}$/.test(id)
-          ? 'https://drive.google.com/thumbnail?id=' + encodeURIComponent(id) + '&sz=w600'
-          : null;
-      }
-      return u.href;
+      if (u.protocol !== 'https:' || !['drive.google.com','docs.google.com'].includes(u.hostname.toLowerCase())) return null;
+      const id = u.pathname.match(/\/file\/d\/([A-Za-z0-9_-]{15,})/)?.[1] || u.searchParams.get('id');
+      return id && /^[A-Za-z0-9_-]{15,}$/.test(id) ? id : null;
     } catch { return null; }
   };
+  const safePhoto = url => {
+    const id=driveFileId(url);
+    if(id) return 'https://lh3.googleusercontent.com/d/'+encodeURIComponent(id);
+    try {
+      const u = new URL(String(url || '').trim());
+      return u.protocol==='https:' ? u.href : null;
+    } catch { return null; }
+  };
+  const backupPhoto = url => {
+    const id=driveFileId(url);
+    return id ? 'https://drive.google.com/thumbnail?id='+encodeURIComponent(id)+'&sz=w600' : '';
+  };
+  function photoError(event){
+    const img=event.target;
+    if(!(img instanceof HTMLImageElement) || !img.matches('img[data-ranking-photo]')) return;
+    if(img.dataset.fallbackPhoto && img.dataset.photoRetry!=='1'){
+      img.dataset.photoRetry='1';
+      img.src=img.dataset.fallbackPhoto;
+    } else img.remove();
+  }
+  document.addEventListener('error',photoError,true);
   let sb = null;
   let toastTimer;
   const state = {view:'inicio',global:[],levels:[],studies:[],scope:'global',studyId:'',visible:20,ranking:[],loadSerial:0,privateData:null,loaded:false};
@@ -58,8 +75,9 @@
     return (words.length>1?words[0][0]+words[1][0]:words[0]?.slice(0,2)||'S').toUpperCase();
   }
   function avatar(person,klass){
-    const src=safePhoto(person.foto_url),letters=escapeHtml(initials(person.nombre));
-    return `<div class="${klass}" aria-hidden="true">${src?`<img src="${escapeHtml(src)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">`:''}<span>${letters}</span></div>`;
+    const src=safePhoto(person.foto_url),fallback=backupPhoto(person.foto_url),letters=escapeHtml(initials(person.nombre));
+    const load=klass==='podium-avatar'?'eager':'lazy';
+    return `<div class="${klass}" aria-hidden="true">${src?`<img data-ranking-photo src="${escapeHtml(src)}" data-fallback-photo="${escapeHtml(fallback)}" alt="" loading="${load}" referrerpolicy="no-referrer" decoding="async">`:''}<span>${letters}</span></div>`;
   }
   function renderPodium(rows,elementId){
     const wrap=$(elementId);if(!wrap)return;
@@ -193,7 +211,7 @@
     $('myName').textContent=p.nombre||'Integrante';$('myState').textContent=p.estado||'La Movida de SST+';
     const ph=safePhoto(p.foto_url),avatarBox=$('myAvatar');
     avatarBox.textContent=initials(p.nombre);
-    if(ph){const img=document.createElement('img');img.src=ph;img.alt='Foto de perfil';img.referrerPolicy='no-referrer';img.onerror=()=>img.remove();avatarBox.appendChild(img);}
+    if(ph){const img=document.createElement('img');img.dataset.rankingPhoto='';img.dataset.fallbackPhoto=backupPhoto(p.foto_url);img.src=ph;img.alt='Foto de perfil';img.referrerPolicy='no-referrer';avatarBox.appendChild(img);}
     $('myLevelIcon').textContent=r.nivel_icono||'✦';$('myLevelName').textContent=r.nivel||'Participante';
     $('myXp').textContent=format(r.puntos);
     $('myPosition').textContent=r.fuera_de_ranking?'Fuera de clasificación':Number(r.posicion)>0?`#${format(r.posicion)}`:'—';
