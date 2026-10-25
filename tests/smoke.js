@@ -24,7 +24,7 @@ assert.doesNotMatch(html,/href="https:\/\/(?:www|registro)\.movidasst\.com\/"[^>
 assert.match(js,/lh3\.googleusercontent\.com\/d\//);
 assert.match(js,/data-ranking-photo/);
 assert.match(js,/backupPhoto/);
-assert.match(fs.readFileSync('sw.js','utf8'),/ranking-sst-shell-v3/);
+assert.match(fs.readFileSync('sw.js','utf8'),/ranking-sst-shell-v4/);
 
 assert.match(html,/class="brand brand-official"/);
 assert.match(html,/class="brand-logo-img"/);
