@@ -46,7 +46,7 @@
   document.addEventListener('error',photoError,true);
   let sb = null;
   let toastTimer;
-  const state = {view:'inicio',global:[],levels:[],studies:[],scope:'global',studyId:'',visible:20,ranking:[],loadSerial:0,privateData:null,loaded:false};
+  const state = {view:'inicio',global:[],levels:[],studies:[],scope:'global',studyId:'todos',visible:20,ranking:[],loadSerial:0,privateData:null,loaded:false};
 
   function toast(message,isError=false){
     const e=$('appToast');clearTimeout(toastTimer);e.textContent=message;e.className='toast'+(isError?' error':'');e.hidden=false;
@@ -98,7 +98,7 @@
   }
   function createStudyOptions(){
     const selected=state.studyId;
-    $('studySelect').innerHTML='<option value="">Selecciona un estudio</option>' + state.studies.map(s=>`<option value="${escapeHtml(s.id)}" ${s.id===selected?'selected':''}>${escapeHtml(`${s.codigo||'EST'} · ${s.tema||'Estudio'}`)}</option>`).join('');
+    $('studySelect').innerHTML='<option value="todos"'+(selected==='todos'?' selected':'')+'>Todos los estudios · XP acumulados</option>' + state.studies.map(s=>`<option value="${escapeHtml(s.id)}" ${s.id===selected?'selected':''}>${escapeHtml(`${s.codigo||'EST'} · ${s.tema||'Estudio'}`)}</option>`).join('');
   }
   function createLevelOptions(){
     $('levelFilter').innerHTML='<option value="">Todos los niveles</option>'+state.levels.map(s=>`<option value="${escapeHtml(s.nombre)}">${escapeHtml(s.nombre)}</option>`).join('');
@@ -108,6 +108,17 @@
     for(let offset=0;offset<=10000;offset+=PAGE_SIZE){
       const chunk=await rpc('ranking_publico',{p_limit:PAGE_SIZE,p_offset:offset});
       if(!Array.isArray(chunk))throw new Error('El ranking no devolvió un listado válido.');
+      all.push(...chunk);
+      if(chunk.length<PAGE_SIZE)break;
+    }
+    return all;
+  }
+  async function fetchAllStudyRanking(){
+    const all=[];
+    // Una única consulta pública agregada; no mezclar con XP de otras aplicaciones.
+    for(let offset=0;offset<=10000;offset+=PAGE_SIZE){
+      const chunk=await rpc('ranking_todos_estudios_publico',{p_limit:PAGE_SIZE,p_offset:offset});
+      if(!Array.isArray(chunk))throw new Error('El ranking acumulado por estudios no devolvió datos válidos.');
       all.push(...chunk);
       if(chunk.length<PAGE_SIZE)break;
     }
@@ -148,19 +159,29 @@
     $('scopeGlobal').setAttribute('aria-pressed',String(!isStudy));
     $('scopeStudies').setAttribute('aria-pressed',String(isStudy));
     $('studyField').hidden=!isStudy;
-    if(isStudy){state.ranking=[];if(state.studyId)loadStudy();else renderRanking();}
-    else{state.ranking=state.global;renderRanking();}
+    if(isStudy){state.ranking=[];loadStudy();}
+    else{state.loadSerial++;state.ranking=state.global;renderRanking();}
   }
   async function loadStudy(){
     const id=state.studyId,seq=++state.loadSerial;
     if(!id){state.ranking=[];renderRanking();return;}
-    $('rankingList').innerHTML=`<div class="loading-inline"><span class="loader"></span> Cargando estudio…</div>`;
+    $('rankingPodium').hidden=true;
+    $('rankingCount').textContent='—';
+    $('rankingCaption').textContent=id==='todos'?'Sumando los XP de todos los estudios…':'Cargando resultados del estudio…';
+    $('rankingList').innerHTML=`<div class="loading-inline"><span class="loader"></span> ${id==='todos'?'Calculando todos los estudios…':'Cargando estudio…'}</div>`;
     try{
-      const rows=await rpc('ranking_sesion_publico',{p_sesion_id:id,p_limit:500});
+      const rows=id==='todos'
+        ? await fetchAllStudyRanking()
+        : await rpc('ranking_sesion_publico',{p_sesion_id:id,p_limit:500});
       if(seq!==state.loadSerial||state.scope!=='study'||state.studyId!==id)return;
       state.ranking=Array.isArray(rows)?rows:[];
       state.visible=20;renderRanking();
-    }catch(err){if(seq!==state.loadSerial)return;state.ranking=[];renderRanking();toast('No fue posible consultar el estudio.',true);}
+    }catch(err){
+      if(seq!==state.loadSerial||state.scope!=='study'||state.studyId!==id)return;
+      state.ranking=[];renderRanking();
+      $('rankingList').innerHTML='<div class="empty-state">No se pudieron cargar los resultados. Pulsa «Actualizar» para reintentar.</div>';
+      toast(id==='todos'?'No fue posible consultar todos los estudios.':'No fue posible consultar el estudio.',true);
+    }
   }
   function renderRanking(){
     if(!state.loaded)return;
@@ -174,7 +195,7 @@
     const rest=showPodium?filtered.slice(3):filtered;
     const visible=rest.slice(0,state.visible);
     $('rankingCount').textContent=scopeChosen?`${format(filtered.length)} profesionales`:'—';
-    $('rankingCaption').textContent=isStudy?(state.studyId?'Resultados de este estudio':'Selecciona un estudio para consultar su ranking'):'Resultados del ranking general';
+    $('rankingCaption').textContent=!isStudy?'Resultados del ranking general':state.studyId==='todos'?'XP acumulados de todos los estudios':state.studyId?'Resultados de este estudio':'Selecciona un estudio para consultar su ranking';
     $('rankingList').innerHTML=visible.length?visible.map(r=>`<div class="ranking-row"><span class="rank-number">#${format(r.posicion)}</span>${avatar(r,'row-avatar')}<div class="ranking-row-name"><strong>${escapeHtml(r.nombre)}</strong><small>${escapeHtml(r.nivel_icono||'')} ${escapeHtml(r.nivel||'Participante')}${r.estado?' · '+escapeHtml(r.estado):''}</small></div><div class="ranking-row-points">${format(r.puntos)}<small>XP</small></div></div>`).join(''):
       `<div class="empty-state">${!scopeChosen?'Selecciona un estudio.':searching?'No encontramos profesionales con estos filtros.':'Todavía no hay posiciones en este ranking.'}</div>`;
     $('showMoreRank').hidden=rest.length<=state.visible;
@@ -261,7 +282,7 @@
       const name=escXml(String(r.nombre||'').slice(0,44));
       return `<rect x="105" y="${y}" rx="19" width="990" height="85" fill="${i%2?'#f4f8fa':'#fff'}"/><text x="139" y="${y+54}" font-size="27" fill="#007b85" font-weight="800">#${i+1}</text><text x="226" y="${y+50}" font-size="27" fill="#00205b" font-weight="750">${name}</text><text x="1050" y="${y+50}" text-anchor="end" font-size="30" fill="#00205b" font-weight="800">${format(r.puntos)} XP</text>`;
     }).join('');
-    const svgText=`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630"><rect width="1200" height="630" fill="#f5f8fc"/><rect width="1200" height="195" fill="#00205b"/><rect width="1200" height="8" fill="#ffb600"/><text x="105" y="81" font-family="Arial,sans-serif" font-weight="800" font-size="34" fill="#fff">LA MOVIDA DE SST+</text><text x="105" y="146" font-family="Arial,sans-serif" font-weight="800" font-size="54" fill="#fff">${state.scope==='study'?'Podio del estudio':'Ranking de la comunidad'}</text><g font-family="Arial,sans-serif">${safeRows}</g><text x="105" y="598" font-family="Arial,sans-serif" font-size="20" fill="#007b85">ranking.movidasst.com · De la Reacción a la Prevención</text></svg>`;
+    const svgText=`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630"><rect width="1200" height="630" fill="#f5f8fc"/><rect width="1200" height="195" fill="#00205b"/><rect width="1200" height="8" fill="#ffb600"/><text x="105" y="81" font-family="Arial,sans-serif" font-weight="800" font-size="34" fill="#fff">LA MOVIDA DE SST+</text><text x="105" y="146" font-family="Arial,sans-serif" font-weight="800" font-size="54" fill="#fff">${state.scope==='study'?(state.studyId==='todos'?'Todos los estudios':'Podio del estudio'):'Ranking de la comunidad'}</text><g font-family="Arial,sans-serif">${safeRows}</g><text x="105" y="598" font-family="Arial,sans-serif" font-size="20" fill="#007b85">ranking.movidasst.com · De la Reacción a la Prevención</text></svg>`;
     try{
       const dataURL=URL.createObjectURL(new Blob([svgText],{type:'image/svg+xml;charset=utf-8'}));
       const img=new Image();

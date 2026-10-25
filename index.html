@@ -26,7 +26,7 @@
   <link rel="preload" as="image" href="assets/logo-oficial-movida-sst-plus.png" fetchpriority="high">
   <link rel="stylesheet" href="styles.css?v=1.2.0">
   <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script defer src="app.js?v=1.1.0"></script>
+  <script defer src="app.js?v=1.3.0"></script>
 </head>
 <body>
   <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="svg-sprite">
@@ -109,7 +109,7 @@
     <section id="view-ranking" class="page" data-page="ranking" hidden>
       <div class="page-heading"><span class="overline">CLASIFICACIÓN OFICIAL</span><h1>Ranking de integrantes</h1><p>Explora las posiciones, busca profesionales y consulta los reconocimientos acumulados.</p></div>
       <div class="mode-switch" role="group" aria-label="Alcance del ranking"><button class="mode-btn selected" id="scopeGlobal" type="button" aria-pressed="true">Ranking general</button><button class="mode-btn" id="scopeStudies" type="button" aria-pressed="false">Por estudio</button></div>
-      <div class="rank-filters"><label id="studyField" class="field" hidden><span>Selecciona un estudio</span><select id="studySelect"><option value="">Selecciona un estudio</option></select></label><label class="field field-search"><span>Buscar integrante</span><span class="input-icon"><svg><use href="#i-search"/></svg><input id="rankingSearch" type="search" placeholder="Nombre del profesional" autocomplete="off"></span></label><label class="field"><span>Filtrar por nivel</span><select id="levelFilter"><option value="">Todos los niveles</option></select></label></div>
+      <div class="rank-filters"><label id="studyField" class="field" hidden><span>Estudios que quieres consultar</span><select id="studySelect"><option value="todos" selected>Todos los estudios · XP acumulados</option></select></label><label class="field field-search"><span>Buscar integrante</span><span class="input-icon"><svg><use href="#i-search"/></svg><input id="rankingSearch" type="search" placeholder="Nombre del profesional" autocomplete="off"></span></label><label class="field"><span>Filtrar por nivel</span><select id="levelFilter"><option value="">Todos los niveles</option></select></label></div>
       <div class="rank-topline"><div><strong id="rankingCount">—</strong><span id="rankingCaption">Resultados del ranking general</span></div><div class="rank-top-actions"><button class="chip-action" id="refreshRank" type="button"><svg><use href="#i-refresh"/></svg> Actualizar</button><button class="chip-action" id="downloadPodium" type="button"><svg><use href="#i-download"/></svg> Podio PNG</button></div></div>
       <div id="rankingPodium" class="podium-area podium-ranking"></div>
       <div class="rank-card"><div class="rank-card-head"><strong>Clasificación</strong><span>Posición · Integrante · XP</span></div><div id="rankingList" class="ranking-list"><div class="loading-inline"><span class="loader"></span> Consultando ranking…</div></div><button id="showMoreRank" class="button button-secondary load-more" type="button" hidden>Mostrar más posiciones <svg><use href="#i-arrow"/></svg></button></div>

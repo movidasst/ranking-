@@ -40,3 +40,6 @@ node tests/smoke.js
 ```
 
 *La Movida de SST+ · De la Reacción a la Prevención*
+
+## Ranking acumulado por estudios (octubre 2026)
+En la pestaña «Ranking» hay dos ámbitos: «Ranking general» (todos los XP) y «Por estudio», donde la opción predeterminada «Todos los estudios · XP acumulados» suma exclusivamente eventos asociados a estudios, respetando exclusiones de participantes del ranking. También permite seleccionar estudios específicos. Utiliza la nueva función **pública y solo lectura** `ranking_todos_estudios_publico`, sin cambiar las consultas existentes. La selección «Todos los estudios» incluye únicamente estudios visibles, sin XP de Participa ni de Pulso de la Comunidad. La consulta admite paginación.
