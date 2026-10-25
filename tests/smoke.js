@@ -36,5 +36,5 @@ assert.match(html,/class="brand-logo-img"/);
 assert.match(html,/class="hero-official-logo"/);
 assert.match(html,/assets\/logo-oficial-movida-sst-plus\.png/);
 assert.match(fs.readFileSync('styles.css','utf8'),/hero-logo-stage/);
-assert.match(fs.readFileSync('sw.js','utf8'),/ranking-sst-shell-v4/);
+assert.match(fs.readFileSync('sw.js','utf8'),/ranking-sst-shell-v5/);
 assert.ok(fs.statSync('assets/logo-oficial-movida-sst-plus.png').size>50000);
