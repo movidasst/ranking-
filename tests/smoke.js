@@ -20,7 +20,7 @@ assert.match(html,/value="todos" selected>Todos los estudios/);
 assert.match(js,/ranking_todos_estudios_publico/);
 assert.match(js,/state\.studyId==='todos'/);
 assert.match(js,/id==='todos'\s*\? await fetchAllStudyRanking\(\)/);
-assert.match(fs.readFileSync('sw.js','utf8'),/ranking-sst-shell-v6/);
+assert.match(fs.readFileSync('sw.js','utf8'),/ranking-sst-shell-v7/);
 assert.match(html,/Hacia la IA agéntica en SST/);
 assert.match(html,/¿Cómo funcionan los XP\?/);
 assert.match(html,/50 <small>XP<\/small>/);
@@ -28,6 +28,11 @@ assert.match(html,/100 <small>XP<\/small>/);
 assert.match(html,/150 <small>XP<\/small>/);
 assert.match(html,/con supervisión humana/);
 assert.match(fs.readFileSync('styles.css','utf8'),/\.innovation-explainer/);
+assert.match(js,/function directorioProfileUrl\(person\)/);
+assert.match(js,/directorio\.movidasst\.com/);
+assert.match(js,/class="podium-card is-\$\{kind\} ranking-profile-link"/);
+assert.match(js,/class="ranking-row ranking-profile-link"/);
+assert.match(html,/Toca una foto o un nombre/);
 console.log('All ranking SST smoke checks passed.');
 
 assert.match(html,/class="header-home round-btn"[^>]*aria-label="Ir al inicio/);
@@ -36,12 +41,12 @@ assert.doesNotMatch(html,/href="https:\/\/(?:www|registro)\.movidasst\.com\/"[^>
 assert.match(js,/lh3\.googleusercontent\.com\/d\//);
 assert.match(js,/data-ranking-photo/);
 assert.match(js,/backupPhoto/);
-assert.match(fs.readFileSync('sw.js','utf8'),/ranking-sst-shell-v6/);
+assert.match(fs.readFileSync('sw.js','utf8'),/ranking-sst-shell-v7/);
 
 assert.match(html,/class="brand brand-official"/);
 assert.match(html,/class="brand-logo-img"/);
 assert.match(html,/class="hero-official-logo"/);
 assert.match(html,/assets\/logo-oficial-movida-sst-plus\.png/);
 assert.match(fs.readFileSync('styles.css','utf8'),/hero-logo-stage/);
-assert.match(fs.readFileSync('sw.js','utf8'),/ranking-sst-shell-v6/);
+assert.match(fs.readFileSync('sw.js','utf8'),/ranking-sst-shell-v7/);
 assert.ok(fs.statSync('assets/logo-oficial-movida-sst-plus.png').size>50000);

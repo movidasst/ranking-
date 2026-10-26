@@ -24,9 +24,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="assets/logo-oficial-movida-sst-plus.png" fetchpriority="high">
-  <link rel="stylesheet" href="styles.css?v=1.4.0">
+  <link rel="stylesheet" href="styles.css?v=1.5.0">
   <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script defer src="app.js?v=1.3.0"></script>
+  <script defer src="app.js?v=1.5.0"></script>
 </head>
 <body>
   <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="svg-sprite">
@@ -107,7 +107,7 @@
     </section>
 
     <section id="view-ranking" class="page" data-page="ranking" hidden>
-      <div class="page-heading"><span class="overline">CLASIFICACIÓN OFICIAL</span><h1>Ranking de integrantes</h1><p>Explora las posiciones, busca profesionales y consulta los reconocimientos acumulados.</p></div>
+      <div class="page-heading"><span class="overline">CLASIFICACIÓN OFICIAL</span><h1>Ranking de integrantes</h1><p>Explora las posiciones, busca profesionales y consulta los reconocimientos acumulados. Toca una foto o un nombre para conocer su perfil en el Directorio.</p></div>
       <div class="mode-switch" role="group" aria-label="Alcance del ranking"><button class="mode-btn selected" id="scopeGlobal" type="button" aria-pressed="true">Ranking general</button><button class="mode-btn" id="scopeStudies" type="button" aria-pressed="false">Por estudio</button></div>
       <div class="rank-filters"><label id="studyField" class="field" hidden><span>Estudios que quieres consultar</span><select id="studySelect"><option value="todos" selected>Todos los estudios · XP acumulados</option></select></label><label class="field field-search"><span>Buscar integrante</span><span class="input-icon"><svg><use href="#i-search"/></svg><input id="rankingSearch" type="search" placeholder="Nombre del profesional" autocomplete="off"></span></label><label class="field"><span>Filtrar por nivel</span><select id="levelFilter"><option value="">Todos los niveles</option></select></label></div>
       <div class="rank-topline"><div><strong id="rankingCount">—</strong><span id="rankingCaption">Resultados del ranking general</span></div><div class="rank-top-actions"><button class="chip-action" id="refreshRank" type="button"><svg><use href="#i-refresh"/></svg> Actualizar</button><button class="chip-action" id="downloadPodium" type="button"><svg><use href="#i-download"/></svg> Podio PNG</button></div></div>

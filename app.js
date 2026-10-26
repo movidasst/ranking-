@@ -79,6 +79,13 @@
     const load=klass==='podium-avatar'?'eager':'lazy';
     return `<div class="${klass}" aria-hidden="true">${src?`<img data-ranking-photo src="${escapeHtml(src)}" data-fallback-photo="${escapeHtml(fallback)}" alt="" loading="${load}" referrerpolicy="no-referrer" decoding="async">`:''}<span>${letters}</span></div>`;
   }
+  function directorioProfileUrl(person){
+    const url=new URL('https://directorio.movidasst.com/');
+    url.searchParams.set('perfil',String(person.nombre||'').trim());
+    const photoId=driveFileId(person.foto_url);
+    if(photoId) url.searchParams.set('foto',photoId);
+    return url.href;
+  }
   function renderPodium(rows,elementId){
     const wrap=$(elementId);if(!wrap)return;
     if(!rows.length){wrap.innerHTML='<div class="empty-state">El ranking todavía no tiene posiciones que mostrar.</div>';return;}
@@ -86,7 +93,7 @@
     const order=rows.length>=3?[rows[1],rows[0],rows[2]]:rows.slice(0,3);
     wrap.innerHTML=order.map(r=>{
       const rank=Number(r.posicion),kind=rank===1?'first':rank===2?'second':'third';
-      return `<article class="podium-card is-${kind}"><div class="podium-card-head"><span class="place-medal">${escapeHtml(medals[rank-1]||`#${rank}`)}</span><b class="place-number">${String(rank).padStart(2,'0')}</b></div>${avatar(r,'podium-avatar')}<strong class="podium-name">${escapeHtml(r.nombre)}</strong><span class="podium-level">${escapeHtml(r.nivel_icono||'')} ${escapeHtml(r.nivel||'Participante')}</span><div class="podium-score">${format(r.puntos)} <small>XP</small></div></article>`;
+      return `<a class="podium-card is-${kind} ranking-profile-link" href="${escapeHtml(directorioProfileUrl(r))}" target="_blank" rel="noopener noreferrer" aria-label="Ver el perfil profesional de ${escapeHtml(r.nombre)} en el Directorio"><div class="podium-card-head"><span class="place-medal">${escapeHtml(medals[rank-1]||`#${rank}`)}</span><b class="place-number">${String(rank).padStart(2,'0')}</b></div>${avatar(r,'podium-avatar')}<strong class="podium-name">${escapeHtml(r.nombre)}</strong><span class="podium-level">${escapeHtml(r.nivel_icono||'')} ${escapeHtml(r.nivel||'Participante')}</span><div class="podium-score">${format(r.puntos)} <small>XP</small></div><span class="podium-profile-hint">Ver perfil ${icon('external')}</span></a>`;
     }).join('');
   }
   function renderHome(){
@@ -196,7 +203,7 @@
     const visible=rest.slice(0,state.visible);
     $('rankingCount').textContent=scopeChosen?`${format(filtered.length)} profesionales`:'—';
     $('rankingCaption').textContent=!isStudy?'Resultados del ranking general':state.studyId==='todos'?'XP acumulados de todos los estudios':state.studyId?'Resultados de este estudio':'Selecciona un estudio para consultar su ranking';
-    $('rankingList').innerHTML=visible.length?visible.map(r=>`<div class="ranking-row"><span class="rank-number">#${format(r.posicion)}</span>${avatar(r,'row-avatar')}<div class="ranking-row-name"><strong>${escapeHtml(r.nombre)}</strong><small>${escapeHtml(r.nivel_icono||'')} ${escapeHtml(r.nivel||'Participante')}${r.estado?' · '+escapeHtml(r.estado):''}</small></div><div class="ranking-row-points">${format(r.puntos)}<small>XP</small></div></div>`).join(''):
+    $('rankingList').innerHTML=visible.length?visible.map(r=>`<a class="ranking-row ranking-profile-link" href="${escapeHtml(directorioProfileUrl(r))}" target="_blank" rel="noopener noreferrer" aria-label="Ver el perfil profesional de ${escapeHtml(r.nombre)} en el Directorio"><span class="rank-number">#${format(r.posicion)}</span>${avatar(r,'row-avatar')}<div class="ranking-row-name"><strong>${escapeHtml(r.nombre)}</strong><small>${escapeHtml(r.nivel_icono||'')} ${escapeHtml(r.nivel||'Participante')}${r.estado?' · '+escapeHtml(r.estado):''}</small></div><div class="ranking-row-points">${format(r.puntos)}<small>XP ${icon('external')}</small></div></a>`).join(''):
       `<div class="empty-state">${!scopeChosen?'Selecciona un estudio.':searching?'No encontramos profesionales con estos filtros.':'Todavía no hay posiciones en este ranking.'}</div>`;
     $('showMoreRank').hidden=rest.length<=state.visible;
     $('downloadPodium').disabled=filtered.length===0;

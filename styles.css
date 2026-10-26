@@ -148,3 +148,12 @@
 .innovation-chevron{height:15px;width:15px;color:#7ca8ac}
 @media(max-width:830px){.innovation-explainer{grid-template-columns:1fr}}
 @media(max-width:640px){.innovation-explainer{gap:11px;margin:15px 0 20px}.innovation-card{padding:20px 17px;border-radius:16px}.innovation-card h3{font-size:19px}.innovation-card>p{font-size:12.5px;margin-top:14px}.xp-pill strong{font-size:21px}.xp-pill span{font-size:9px}.innovation-node{font-size:10px;padding:7px 9px}}
+
+/* Perfiles públicos enlazados al Directorio, sin alterar el diseño del ranking. */
+.ranking-profile-link{color:inherit;text-decoration:none;cursor:pointer;transition:transform .17s ease,box-shadow .17s ease,background .17s ease}
+.ranking-profile-link:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+.podium-profile-hint{display:inline-flex;align-items:center;gap:5px;position:relative;z-index:1;color:var(--teal);font-size:10px;font-weight:800;margin-top:10px}
+.podium-profile-hint svg{width:13px;height:13px}
+.ranking-row-points small svg{width:11px;height:11px;vertical-align:middle}
+@media(hover:hover){.podium-card.ranking-profile-link:hover{transform:translateY(-3px);box-shadow:0 17px 35px rgba(0,32,91,.11)}.ranking-row.ranking-profile-link:hover{background:#eff9f8}}
+@media(max-width:640px){.podium-profile-hint{font-size:9px}.ranking-row-points small svg{width:10px;height:10px}}

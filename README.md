@@ -47,3 +47,6 @@ En la pestaña «Ranking» hay dos ámbitos: «Ranking general» (todos los XP) 
 
 ## Explicación pública de XP e innovación
 La pestaña «Más» contiene dos tarjetas informativas sobre los XP de las tres fuentes y la evolución de Inteligencia SST hacia capacidades agénticas. El texto distingue las funciones actuales de la siguiente etapa, mantiene la validación humana para asignar puntos y no modifica las reglas ni los datos.
+
+## Perfiles del Directorio
+El podio y las filas de clasificación son enlaces accesibles al perfil profesional público correspondiente del Directorio, abiertos en una pestaña nueva. La dirección lleva el nombre público y, si está disponible, el identificador público de su fotografía para resolver homónimos. El Directorio incorpora `perfil-deeplink.js` como complemento no invasivo para abrir la ficha, sin modificar los mecanismos de ranking o edición de perfiles.
