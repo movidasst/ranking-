@@ -13,7 +13,10 @@ for(const endpoint of ['ranking_publico','ranking_sesion_publico','estudia_nivel
 }
 assert.doesNotMatch(js,/\.from\(['"]puntos_eventos|\.insert\(|\.update\(|\.delete\(|localStorage\.|sessionStorage\./);
 assert.match(html,/ranking\.movidasst\.com/);
-assert.match(html,/assets\/og-ranking\.png/);
+assert.match(html,/assets\\/og-ranking-movida-sst-20261025\\.jpg/);
+assert.match(html,/<meta property="og:image:type" content="image\\/jpeg">/);
+assert.match(html,/<meta name="twitter:image" content="https:\\/\\/ranking\\.movidasst\\.com\\/assets\\/og-ranking-movida-sst-20261025\\.jpg">/);
+assert.ok(fs.statSync('assets/og-ranking-movida-sst-20261025.jpg').size>50000);
 assert.equal(fs.readFileSync('CNAME','utf8').trim(),'ranking.movidasst.com');
 assert.equal(JSON.parse(fs.readFileSync('manifest.webmanifest','utf8')).display,'standalone');
 assert.match(html,/value="todos" selected>Todos los estudios/);
